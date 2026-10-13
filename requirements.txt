@@ -1,0 +1,10 @@
+ipython
+jupyterlab
+matplotlib
+networkx
+numpy
+pandas
+PySensemakr
+RiskLabAI==3.2.0
+scipy
+statsmodels
