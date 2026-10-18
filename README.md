@@ -16,7 +16,7 @@ python -m venv .venv
 jupyter lab
 ```
 
-Generated figures, tables, and intermediate files are written under `outputs/`. The notebooks use the light figure palette defined in `book_figure_style.py`.
+Generated figures, tables, and intermediate files are written under `outputs/`. Python figure styling is defined in `book_figure_style.py`; the Julia companions use the approved dark figure theme.
 
 ## Contents
 
