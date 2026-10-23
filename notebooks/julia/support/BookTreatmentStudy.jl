@@ -41,8 +41,6 @@ function structural_summary(values)
     return DataFrame("Node"=>names(values),"Mean"=>[mean(values[!,name]) for name in names(values)],"Standard deviation"=>[std(values[!,name]) for name in names(values)],"Minimum"=>[minimum(values[!,name]) for name in names(values)],"Maximum"=>[maximum(values[!,name]) for name in names(values)])
 end
 
-is_readonly(values) = values isa RiskLabAI.CausalFactorAnalysis._CausalReadOnlyArray
-
-export generated_did, generated_iv, histogram_peak, structural_summary, is_readonly
+export generated_did, generated_iv, histogram_peak, structural_summary
 
 end

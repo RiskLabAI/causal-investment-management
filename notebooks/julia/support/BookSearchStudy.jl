@@ -60,12 +60,14 @@ function readonly_evidence(value)
     return rejected && collect(value)==before
 end
 
-function record_evidence(value)
+function record_evidence(value;sources=())
     field=first(fieldnames(typeof(value)))
     frozen=mutation_rejected(()->setfield!(value,field,getproperty(value,field)))
     arrays=[getproperty(value,name) for name in fieldnames(typeof(value)) if getproperty(value,name) isa AbstractArray]
-    protected=all(readonly_evidence,arrays)
-    return (string(nameof(typeof(value))),frozen,protected,frozen&&protected)
+    pairwise_separate=all(!Base.mightalias(arrays[left],arrays[right]) for left in eachindex(arrays) for right in left+1:length(arrays))
+    source_separate=all(!Base.mightalias(array,source) for array in arrays for source in sources)
+    separate=pairwise_separate&&source_separate
+    return (string(nameof(typeof(value))),frozen,separate,frozen&&separate)
 end
 
 function paired_weights(labels,first,second;first_label="Reference",second_label="Misspecified",title="",size=(900,600))

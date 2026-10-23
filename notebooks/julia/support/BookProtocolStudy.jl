@@ -12,6 +12,12 @@ function update_record(value;kwargs...)
     return typeof(value)(;merge(original,(;kwargs...))...)
 end
 
+function update_record(value::CausalFactorProtocolReport;kwargs...)
+    fields=Tuple(name for name in fieldnames(typeof(value)) if name∉(:source_oracle,:source_locator))
+    original=NamedTuple{fields}(Tuple(getfield(value,name) for name in fields))
+    return typeof(value)(;merge(original,(;kwargs...))...)
+end
+
 function human_label(value)
     special=Dict("PC"=>"PC","LINGAM"=>"LiNGAM","R_SQUARED"=>"R squared","MEAN_SQUARED_ERROR"=>"Mean squared error","BENJAMINI_HOCHBERG"=>"Benjamini-Hochberg","DEFLATED_SHARPE_RATIO"=>"Deflated Sharpe ratio")
     return get(special,value,titlecase(lowercase(replace(value,"_"=>" "))))
